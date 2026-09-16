@@ -5,6 +5,7 @@
 //npm install --save mysql2
 //npm install dotenv
 
+require("dotenv").config()
 const express = require("express")
 const app = express()
 const {sequelize} = require("./config/db")
