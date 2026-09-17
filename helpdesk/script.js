@@ -9,12 +9,17 @@ require("dotenv").config()
 const express = require("express")
 const app = express()
 const {sequelize} = require("./config/db")
-require("./models/modfunc")
-require("./models/modsetor")
-require("./models/modticket")
+const modelfunc = require("./models/modfunc")
+const modelsetor = require("./models/modsetor")
+const modelticket = require("./models/modticket")
 const funcionarios = require("./routes/func")
 const setor = require("./routes/setor")
 const ticket = require("./routes/ticket")
+
+
+
+
+
 
 app.use(express.json())
 

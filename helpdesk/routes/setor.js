@@ -5,3 +5,9 @@ const mod = require("../models/modsetor")
 router.get("/", async(req, res)=>{
     
 })
+
+
+
+
+
+module.exports = router

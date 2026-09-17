@@ -10,7 +10,7 @@ create table funcionarios(
     idfuncionario int primary key auto_increment,
     nome varchar(50) not null,
     funcao varchar(20) not null,
-    setor_id int not null,
+    setor_id int not null, /*se o setor do funcionario fro TI, entao ele será admin do help-desk (pois é ele quem vai resolver os problemas), caso contrário, só terá permissão para registrar os problemas*/
 );
 
 create table ticket(

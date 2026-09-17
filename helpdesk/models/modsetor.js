@@ -9,6 +9,7 @@ const mdsetor = banco.sequelize.define("setor",{
         },
         setor:{
             type: banco.Sequelize.STRING,
+            allowNull: false
         }
 }, {timestamps: false, freezeTableName: true})
 

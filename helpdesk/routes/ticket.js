@@ -1,3 +1,12 @@
 const express = require("express")
 const router = express.Router()
 const mod = require("../models/modticket")
+
+
+
+
+
+
+
+
+module.exports = router
