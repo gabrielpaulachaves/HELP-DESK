@@ -16,9 +16,7 @@ const funcionarios = require("./routes/func")
 const setor = require("./routes/setor")
 const ticket = require("./routes/ticket")
 
-
-
-
+funcionarios.belongsTo(setor, {foreignKey: setor_id})
 
 
 app.use(express.json())
