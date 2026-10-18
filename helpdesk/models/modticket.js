@@ -17,6 +17,11 @@ const mdticket = banco.sequelize.define("ticket",{
     descricao:{
         type: banco.Sequelize.TEXT,
         allowNull: false
+    },
+    status:{
+        type: banco.Sequelize.ENUM("aberto", "em andamento", "solucionado"),
+        defaultValue: "aberto",
+        allowNull: false
     }
 }, {timestamps: true, freezeTableName: true})
 

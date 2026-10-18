@@ -10,6 +10,15 @@ const mdfuc = banco.sequelize.define("funcionarios", {
        type: banco.Sequelize.STRING,
        allowNull: false 
     },
+    usuario:{
+        type: banco.Sequelize.STRING,
+        allowNull: false,
+        unique: true
+    },
+    senha:{
+      type: banco.Sequelize.STRING,
+        allowNull: false  
+    },
     funcao:{
         type: banco.Sequelize.STRING,
         allowNull: false 
@@ -18,7 +27,7 @@ const mdfuc = banco.sequelize.define("funcionarios", {
         type: banco.Sequelize.INTEGER,
         allowNull: false
     }
-}, {timestamps: true, FreezeTableName: true})
+}, {timestamps: true, freezeTableName: true})
 
 
 module.exports = mdfuc
