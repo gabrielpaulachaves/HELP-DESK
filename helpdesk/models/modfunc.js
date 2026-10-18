@@ -18,8 +18,7 @@ const mdfuc = banco.sequelize.define("funcionarios", {
         type: banco.Sequelize.INTEGER,
         allowNull: false
     }
-}, {timestamps: false, FreezeTableName: true})
+}, {timestamps: true, FreezeTableName: true})
 
-console.log(mdfuc)
 
 module.exports = mdfuc

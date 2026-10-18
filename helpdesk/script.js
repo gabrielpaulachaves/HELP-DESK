@@ -16,8 +16,12 @@ const funcionarios = require("./routes/func")
 const setor = require("./routes/setor")
 const ticket = require("./routes/ticket")
 
-funcionarios.belongsTo(setor, {foreignKey: setor_id})
 
+modelfunc.belongsTo(modelsetor, {foreignKey: "setor_id"})
+modelsetor.hasMany(modelfunc, {foreignKey: "setor_id"})
+
+modelticket.belongsTo(modelfunc, {foreignKey: "relator_id", as:"relator"})
+modelfunc.hasMany(modelticket, {foreignKey: "relator_id"})
 
 app.use(express.json())
 

@@ -18,6 +18,6 @@ const mdticket = banco.sequelize.define("ticket",{
         type: banco.Sequelize.TEXT,
         allowNull: false
     }
-}, {timestamps: false, FreezeTableName: true})
+}, {timestamps: true, freezeTableName: true})
 
 module.exports = mdticket

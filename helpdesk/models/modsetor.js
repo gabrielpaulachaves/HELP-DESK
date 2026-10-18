@@ -1,4 +1,4 @@
-const { NOT } = require("sequelize/lib/deferrable")
+
 const banco = require("../config/db")
 
 const mdsetor = banco.sequelize.define("setor",{
@@ -11,6 +11,6 @@ const mdsetor = banco.sequelize.define("setor",{
             type: banco.Sequelize.STRING,
             allowNull: false
         }
-}, {timestamps: false, freezeTableName: true})
+}, {timestamps: true, freezeTableName: true})
 
 module.exports = mdsetor

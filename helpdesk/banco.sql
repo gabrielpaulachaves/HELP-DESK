@@ -3,7 +3,9 @@ create database helpdesk;
 
 create table setor(
     idsetor int primary key auto_increment, 
-    setor varchar(50) not null
+    setor varchar(50) not null,
+    createdAt datetime not null,
+    updatedAt datetime not null
 );
 
 create table funcionarios(
@@ -11,6 +13,8 @@ create table funcionarios(
     nome varchar(50) not null,
     funcao varchar(20) not null,
     setor_id int not null, /*se o setor do funcionario fro TI, entao ele será admin do help-desk (pois é ele quem vai resolver os problemas), caso contrário, só terá permissão para registrar os problemas*/
+    createdAt datetime not null,
+    updatedAt datetime not null
 );
 
 create table ticket(
@@ -18,6 +22,8 @@ create table ticket(
     relator_id int not null,
     titulo varchar(50) not null,
     descricao text not null,
+    createdAt datetime not null,
+    updatedAt datetime not null
 );
 
 alter table funcionarios

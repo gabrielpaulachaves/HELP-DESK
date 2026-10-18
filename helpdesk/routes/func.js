@@ -4,12 +4,17 @@ const mod = require("../models/modfunc")
 
 
 router.get("/", async(req, res)=>{
-        
+    try{
+      const func = await mod.findAll({raw: true, order:[["idfuncionario", "DESC"]]})
+      res.status(200).json(func)
+    }catch{
+       res.status(500).json({mensagem: "erro interno"}) 
+    }
 })
 
 router.post("/", async(req, res)=>{
        try{
-        const newfun = "validacao"
+        const newfun = req.body
     const novofun = await mod.create(newfun)
     res.status(201).json(novofun)
     }catch{
