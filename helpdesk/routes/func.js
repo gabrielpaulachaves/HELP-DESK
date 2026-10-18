@@ -3,6 +3,7 @@ const router = express.Router()
 const mod = require("../models/modfunc")
 
 
+
 router.get("/", async(req, res)=>{
     try{
       const func = await mod.findAll({raw: true, order:[["idfuncionario", "DESC"]]})
@@ -12,7 +13,7 @@ router.get("/", async(req, res)=>{
     }
 })
 
-router.post("/", async(req, res)=>{
+router.post("/", midle(["nome","usuario", "senha", "funcao", "setor_id"] ,"post"),async(req, res)=>{
        try{
         const newfun = req.body
     const novofun = await mod.create(newfun)

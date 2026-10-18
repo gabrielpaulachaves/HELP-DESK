@@ -18,6 +18,7 @@ const setor = require("./routes/setor")
 const ticket = require("./routes/ticket")
 
 
+
 modelfunc.belongsTo(modelsetor, {foreignKey: "setor_id"})
 modelsetor.hasMany(modelfunc, {foreignKey: "setor_id"})
 
