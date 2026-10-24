@@ -12,7 +12,7 @@ router.get("/", async(req, res)=>{
        res.status(500).json({mensagem: "erro interno"}) 
     }
 })
-
+                    // a ordem é: entra na URL ("/"), passa pelo middleware (nossa verificacao) e depois continua aqui com o try com um objeto criado no middleware com os dados validados
 router.post("/", midle(["nome","usuario", "senha", "funcao", "setor_id"] ,"post"),async(req, res)=>{
        try{
         const newfun = req.body
