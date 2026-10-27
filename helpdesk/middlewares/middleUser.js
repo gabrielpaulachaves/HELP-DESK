@@ -38,6 +38,10 @@ function validar(valor, http){
                         if(!(typeof(body[key] == "number"))){
                             return res.status(400).json({mensagem: "Tipagem de setor inválido"})
                         }
+                        const setor_id = Number(body[key])
+                        if(isNaN(setor_id)){
+                            return res.status(400).json({mensagem: "o ID do setor deve ser número"})
+                        }
                         
                     }
 
