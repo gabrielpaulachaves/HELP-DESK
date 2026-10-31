@@ -1,4 +1,5 @@
 const mod = require("../models/modfunc")
+const { op } = require("sequelize")
 
 
 function validar(valor, http){
@@ -35,9 +36,6 @@ function validar(valor, http){
 
                     //verificacao do campo setor_id
                     if(key == "setor_id"){
-                        if(!(typeof(body[key] == "number"))){
-                            return res.status(400).json({mensagem: "Tipagem de setor inválido"})
-                        }
                         const setor_id = Number(body[key])
                         if(isNaN(setor_id)){
                             return res.status(400).json({mensagem: "o ID do setor deve ser número"})
@@ -50,21 +48,56 @@ function validar(valor, http){
                 }
                 req.newfun = newfun
                 next()
-            }catch{
+            }catch(err){
                 res.status(500).json({mensagem: "Erro interno"})
             console.log(err)
             }
         }
+        return auth
     }
-
-    if(http == "patch"){
         
+    if(http == "patch"){
+        async function auth(req, res, next) {
+            const body = req.body
+            const attfun = {}
+           try{
+
+            for (const key in body) {
+                if(!colunas.includes(key)){
+                    return res.status(400).json({mensagem:"Campo não existente adicionado"})
+                }
+
+                if(key == "nome" || key == "usuario" || key == "senha" || key == "funcao"){
+                    if(typeof(key) == "string"){
+                        if(body[key].trim() == ""){
+                            return res.status(400).json({mensagem:"Campo vazio. Certifique-se de remover do formulário um campo que você não deseja atualizar"})
+                        }else{
+                            attfun[key] = body[key]
+                        }
+                    }else{
+                        return res.status(400).json({mensagem:"Valores não permitidos foram adicionados"})
+                    }}
+                
+                if(key == "setor_id"){
+                    const setor_id = Number(body[key])
+                    if(isNaN(setor_id)){
+                        return res.status(400).json({mensagem:"Setor deve ser um número"})   
+                    }else if(!setor_id){
+                        return res.status(400).json({mensagem:"Setor não existe"})
+                    }else{
+                        attfun[key] = body[key]
+                    }}           
+            }
+            req.attfun = attfun
+            next()
+           }catch(err){
+            res.status(500).json({mensagem: "Erro interno"})
+            console.log(err)
+           }
+        }
+         return auth
     }
-
-
-
 }
-
 
 module.exports = validar
 
