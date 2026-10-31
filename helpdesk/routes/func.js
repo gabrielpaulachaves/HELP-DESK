@@ -16,10 +16,20 @@ router.get("/", async(req, res)=>{
 router.post("/", midle(["nome","usuario", "senha", "funcao", "setor_id"] ,"post"),async(req, res)=>{
        try{
         const newfun = req.body
+
     const novofun = await mod.create(newfun)
     res.status(201).json(novofun)
     }catch{
        res.status(500).json({mensagem: "erro interno"}) 
+    }
+})
+
+router.patch("/", midle(["nome","usuario", "senha", "funcao", "setor_id"], "patch"), async(req, res)=>{
+    try{
+        const attfun = req.body
+
+    }catch{
+        
     }
 })
 

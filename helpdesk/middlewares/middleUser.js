@@ -41,16 +41,24 @@ function validar(valor, http){
                         const setor_id = Number(body[key])
                         if(isNaN(setor_id)){
                             return res.status(400).json({mensagem: "o ID do setor deve ser número"})
+                        }else if(!setor_id){
+                            return res.status(400).json({mensagem: "Setor não existe"})
+                        }else{
+                            newfun[key] = body[key]
                         }
-                        
-                    }
-
+                    }                   
                 }
-                
+                req.newfun = newfun
+                next()
             }catch{
-
+                res.status(500).json({mensagem: "Erro interno"})
+            console.log(err)
             }
         }
+    }
+
+    if(http == "patch"){
+        
     }
 
 
