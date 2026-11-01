@@ -1,5 +1,5 @@
+const { Op } = require("sequelize")
 const mod = require("../models/modfunc")
-const { op } = require("sequelize")
 
 
 function validar(valor, http){
@@ -26,9 +26,18 @@ function validar(valor, http){
                         if(typeof(body[key]) == "string"){
                             if(body[key].trim() == ""){
                                 return res.status(400).json({mensagem: "Há um campo vazio"})
-                            }else{
-                                newfun[key] = body[key]
                             }
+                            if(key == "usuario"){
+                                if(body[key].length < 12 ||  body[key].length > 30){
+                                    return res.status(400).json({mensagem: "Só é permitido o mínimo de 12 caracteres e o máximo de 30 caracteres"})
+                                }  
+                            }else if(key == "senha"){
+                                if(body[key].length < 8 ||  body[key].length > 20){
+                                    return res.status(400).json({mensagem: "Só é permitido o mínimo de 8 caracteres e o máximo de 12 caracteres"})
+                                } 
+                            }else{
+                                    newfun[key] = body[key]
+                                }
                         }else{
                             return res.status(400).json({mensagem: "Um campo possui tipagem inválida"})
                         }
@@ -36,13 +45,19 @@ function validar(valor, http){
 
                     //verificacao do campo setor_id
                     if(key == "setor_id"){
+                        if(typeof(body[key]) == "object" ||typeof(body[key]) == "boolean"){
+                         return res.status(400).json({mensagem: "Tipagem de setor inválida"})
+                        }
+
                         const setor_id = Number(body[key])
                         if(isNaN(setor_id)){
                             return res.status(400).json({mensagem: "o ID do setor deve ser número"})
                         }else if(!setor_id){
                             return res.status(400).json({mensagem: "Setor não existe"})
+                        }else if(!Number.isInteger(setor_id)){
+                            return res.status(400).json({mensagem: "ID do setor deve ser inteiro"})
                         }else{
-                            newfun[key] = body[key]
+                               newfun[key] = body[key]  
                         }
                     }                   
                 }
@@ -61,6 +76,9 @@ function validar(valor, http){
             const body = req.body
             const attfun = {}
            try{
+            if(!mod.findOne({where: {idfuncionario: req.params.id}})){
+               return res.status(400).json({mensagem: "Funcionário não existe"})
+            }
 
             for (const key in body) {
                 if(!colunas.includes(key)){
@@ -68,25 +86,40 @@ function validar(valor, http){
                 }
 
                 if(key == "nome" || key == "usuario" || key == "senha" || key == "funcao"){
-                    if(typeof(key) == "string"){
+                    if(typeof(body[key]) == "string"){
                         if(body[key].trim() == ""){
                             return res.status(400).json({mensagem:"Campo vazio. Certifique-se de remover do formulário um campo que você não deseja atualizar"})
-                        }else{
-                            attfun[key] = body[key]
                         }
+                        if(key == "usuario"){
+                                if(body[key].length < 12 ||  body[key].length > 30){
+                                    return res.status(400).json({mensagem: "Só é permitido o mínimo de 12 caracteres e o máximo de 30 caracteres"})
+                                }  
+                            }else if(key == "senha"){
+                                if(body[key].length < 8 ||  body[key].length > 20){
+                                    return res.status(400).json({mensagem: "Só é permitido o mínimo de 8 caracteres e o máximo de 12 caracteres"})
+                                } 
+                            }else{
+                                    newfun[key] = body[key]
+                                }
                     }else{
                         return res.status(400).json({mensagem:"Valores não permitidos foram adicionados"})
                     }}
                 
-                if(key == "setor_id"){
-                    const setor_id = Number(body[key])
-                    if(isNaN(setor_id)){
-                        return res.status(400).json({mensagem:"Setor deve ser um número"})   
-                    }else if(!setor_id){
-                        return res.status(400).json({mensagem:"Setor não existe"})
-                    }else{
-                        attfun[key] = body[key]
-                    }}           
+               if(key == "setor_id"){
+                        if(typeof(body[key]) == "object" ||typeof(body[key]) == "boolean"){
+                         return res.status(400).json({mensagem: "Tipagem de setor inválida"})
+                        }
+                        const setor_id = Number(body[key])
+                        if(isNaN(setor_id)){
+                            return res.status(400).json({mensagem: "o ID do setor deve ser número"})
+                        }else if(!setor_id){
+                            return res.status(400).json({mensagem: "Setor não existe"})
+                        }else if(!Number.isInteger(setor_id)){
+                            return res.status(400).json({mensagem: "ID do setor deve ser inteiro"})
+                        }else{
+                            attfun[key] = body[key]       
+                        }
+                    }              
             }
             req.attfun = attfun
             next()
@@ -96,6 +129,9 @@ function validar(valor, http){
            }
         }
          return auth
+    }else{
+       throw new Error("HTTP indefinido");
+       
     }
 }
 

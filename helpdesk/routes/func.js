@@ -2,11 +2,13 @@ const express = require("express")
 const router = express.Router()
 const mod = require("../models/modfunc")
 const midle = require("../middlewares/middleUser")
+const control = require("../controller/conUser")
 
 
 
 router.get("/", async(req, res)=>{
     try{
+        req.body
       const func = await mod.findAll({raw: true, order:[["idfuncionario", "DESC"]]})
       res.status(200).json(func)
     }catch{
@@ -17,6 +19,7 @@ router.get("/", async(req, res)=>{
 router.post("/", midle(["nome","usuario", "senha", "funcao", "setor_id"] ,"post"),async(req, res)=>{
        try{
         const newfun = req.newfun
+        
 
     const novofun = await mod.create(newfun)
     res.status(201).json(novofun)
@@ -25,7 +28,7 @@ router.post("/", midle(["nome","usuario", "senha", "funcao", "setor_id"] ,"post"
     }
 })
 
-router.patch("/", midle(["nome","usuario", "senha", "funcao", "setor_id"], "patch"), async(req, res)=>{
+router.patch("/:id", midle(["nome","usuario", "senha", "funcao", "setor_id"], "patch"), async(req, res)=>{
     try{
         
 
