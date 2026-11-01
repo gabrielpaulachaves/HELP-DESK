@@ -11,6 +11,6 @@ const mdsetor = banco.sequelize.define("setor",{
             type: banco.Sequelize.STRING,
             allowNull: false
         }
-}, {timestamps: true, freezeTableName: true})
+}, {timestamps: false, freezeTableName: true})
 
 module.exports = mdsetor

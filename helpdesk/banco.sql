@@ -62,3 +62,4 @@ references funcionarios(idfuncionario);
 alter table "tabela"
 drop constraint "nome da constraint"
 */
+/*UM detalhe importante: é necessário fazer a inserção de setores manualmente direto no mySQL, pois caso fosse via API, seria mais codigo para escrever, e isso degrada o desempenho do software*/

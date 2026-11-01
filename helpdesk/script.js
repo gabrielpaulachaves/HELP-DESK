@@ -16,7 +16,7 @@ const modelcom = require("./models/modcom")
 const funcionarios = require("./routes/func")
 const setor = require("./routes/setor")
 const ticket = require("./routes/ticket")
-
+const comentarios = require("./routes/com")
 
 
 modelfunc.belongsTo(modelsetor, {foreignKey: "setor_id"})
@@ -33,10 +33,10 @@ modelfunc.hasMany(modelcom, {foreignKey: "escritor_id"})
 
 app.use(express.json())
 
-app.use("/funcionarios", funcionarios)
-app.use("/setor", setor)
+app.use("/comentarios", comentarios)
 app.use("/ticket", ticket)
-
+app.use("/setor", setor)
+app.use("/funcionarios", funcionarios)
 
 sequelize.sync().then(()=>{
     console.log("Servidor conectado")

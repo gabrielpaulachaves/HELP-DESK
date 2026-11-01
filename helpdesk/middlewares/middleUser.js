@@ -29,12 +29,16 @@ function validar(valor, http){
                             }
                             if(key == "usuario"){
                                 if(body[key].length < 12 ||  body[key].length > 30){
-                                    return res.status(400).json({mensagem: "Só é permitido o mínimo de 12 caracteres e o máximo de 30 caracteres"})
-                                }  
+                                    return res.status(400).json({mensagem: "Só é permitido o mínimo de 12 caracteres e o máximo de 30 caracteres para o campo usuario"})
+                                }else{
+                                    newfun[key] = body[key]
+                                }
                             }else if(key == "senha"){
                                 if(body[key].length < 8 ||  body[key].length > 20){
-                                    return res.status(400).json({mensagem: "Só é permitido o mínimo de 8 caracteres e o máximo de 12 caracteres"})
-                                } 
+                                    return res.status(400).json({mensagem: "Só é permitido o mínimo de 8 caracteres e o máximo de 20 caracteres para senhas"})
+                                }else{
+                                    newfun[key] = body[key]
+                                }
                             }else{
                                     newfun[key] = body[key]
                                 }
@@ -65,7 +69,7 @@ function validar(valor, http){
                 next()
             }catch(err){
                 res.status(500).json({mensagem: "Erro interno"})
-            console.log(err)
+                console.log(err)
             }
         }
         return auth
@@ -96,10 +100,10 @@ function validar(valor, http){
                                 }  
                             }else if(key == "senha"){
                                 if(body[key].length < 8 ||  body[key].length > 20){
-                                    return res.status(400).json({mensagem: "Só é permitido o mínimo de 8 caracteres e o máximo de 12 caracteres"})
+                                    return res.status(400).json({mensagem: "Só é permitido o mínimo de 8 caracteres e o máximo de 20 caracteres"})
                                 } 
                             }else{
-                                    newfun[key] = body[key]
+                                    attfun[key] = body[key]
                                 }
                     }else{
                         return res.status(400).json({mensagem:"Valores não permitidos foram adicionados"})

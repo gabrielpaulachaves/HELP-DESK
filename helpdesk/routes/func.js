@@ -1,7 +1,7 @@
 const express = require("express")
 const router = express.Router()
 const mod = require("../models/modfunc")
-const midle = require("../middlewares/middleUser")
+const midle = require("../middlewares/middleuser")
 const control = require("../controller/conUser")
 
 
@@ -19,12 +19,19 @@ router.get("/", async(req, res)=>{
 router.post("/", midle(["nome","usuario", "senha", "funcao", "setor_id"] ,"post"),async(req, res)=>{
        try{
         const newfun = req.newfun
-        
+        console.log(newfun)
+    const novofun = await mod.create({
+        nome: newfun.nome,
+        usuario: newfun.usuario,
+        senha: newfun.senha,
+        funcao: newfun.funcao,
+        setor_id: newfun.setor_id
+    })
 
-    const novofun = await mod.create(newfun)
     res.status(201).json(novofun)
-    }catch{
+    }catch(err){
        res.status(500).json({mensagem: "erro interno"}) 
+       console.log(err)
     }
 })
 
