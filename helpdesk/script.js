@@ -4,6 +4,7 @@
 //npm install sequelize
 //npm install --save mysql2
 //npm install dotenv
+//npm install --save bcrypt
 
 require("dotenv").config()
 const express = require("express")

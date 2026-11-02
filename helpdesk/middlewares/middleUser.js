@@ -66,6 +66,8 @@ function validar(valor, http){
                     }                   
                 }
                 req.newfun = newfun
+                var senha = req.newfun.senha
+                
                 next()
             }catch(err){
                 res.status(500).json({mensagem: "Erro interno"})
@@ -140,4 +142,4 @@ function validar(valor, http){
 }
 
 module.exports = validar
-
+module.exports = senha
