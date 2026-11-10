@@ -18,18 +18,7 @@ router.get("/", async(req, res)=>{
                     // a ordem é: entra na URL ("/"), passa pelo middleware (nossa verificacao) e depois continua aqui com o try com um objeto criado no middleware com os dados validados
 router.post("/", midle(["nome","usuario", "senha", "funcao", "setor_id"] ,"post"),async(req, res)=>{
        try{
-        const newfun = req.newfun
-        
-        
-    const novofun = await mod.create({
-        nome: newfun.nome,
-        usuario: newfun.usuario,
-        senha: newfun.senha,
-        funcao: newfun.funcao,
-        setor_id: newfun.setor_id
-    })
-
-    res.status(201).json(novofun)
+        const enviar = control()
     }catch(err){
        res.status(500).json({mensagem: "erro interno"}) 
        console.log(err)

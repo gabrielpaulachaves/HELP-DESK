@@ -18,7 +18,7 @@ const funcionarios = require("./routes/func")
 const setor = require("./routes/setor")
 const ticket = require("./routes/ticket")
 const comentarios = require("./routes/com")
-require("./helpers/Auth")
+require("./helpers/auth")
 
 
 modelfunc.belongsTo(modelsetor, {foreignKey: "setor_id"})

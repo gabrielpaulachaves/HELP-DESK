@@ -66,7 +66,7 @@ function validar(valor, http){
                     }                   
                 }
                 req.newfun = newfun
-                var senha = req.newfun.senha
+                const senha = req.newfun.senha
                 
                 next()
             }catch(err){
@@ -142,4 +142,4 @@ function validar(valor, http){
 }
 
 module.exports = validar
-module.exports = senha
+
