@@ -1,11 +1,10 @@
 const express = require("express")
 const auth = require("../helpers/auth")
 
-async function Cadastrar(req, res) {
+exports.cadastrar = async(req, res)=>{
     try{
         const newfun = req.newfun
-        
-        
+           
     const novofun = await mod.create({
         nome: newfun.nome,
         usuario: newfun.usuario,
@@ -20,9 +19,8 @@ async function Cadastrar(req, res) {
        console.log(err)
     }
 }
-return Cadastrar
 
-module.exports = Cadastrar
+
 
 
 
