@@ -1,14 +1,16 @@
 const express = require("express")
+const mod = require("../models/modfunc")
 const auth = require("../helpers/auth")
 
 exports.cadastrar = async(req, res)=>{
     try{
         const newfun = req.newfun
+        const senha = auth(newfun.senha)
            
     const novofun = await mod.create({
         nome: newfun.nome,
         usuario: newfun.usuario,
-        senha: auth(newfun.senha),
+        senha: senha,
         funcao: newfun.funcao,
         setor_id: newfun.setor_id
     })
