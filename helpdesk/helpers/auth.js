@@ -1,14 +1,14 @@
 const bcrypt = require("bcrypt")
 
+const saltRounds = 10
 
-async function auth(senha) {
-    const saltRounds = 10
-   const bc = await bcrypt.genSalt(saltRounds, async(err, salt)=>{
-   await bcrypt.hash(senha, salt, (err, hash)=>{
+function auth(senha) {
+   bcrypt.genSalt(saltRounds, (err, salt)=>{
+        bcrypt.hash(senha, salt, (hash)=>{
        return senha = hash
     })
 })
+    
 }
-
+return auth
 module.exports = auth
-

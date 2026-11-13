@@ -5,8 +5,8 @@ const auth = require("../helpers/auth")
 exports.cadastrar = async(req, res)=>{
     try{
         const newfun = req.newfun
-        const senha = auth(newfun.senha)
-           
+        const senha = await auth(newfun.senha)
+
     const novofun = await mod.create({
         nome: newfun.nome,
         usuario: newfun.usuario,
