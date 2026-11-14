@@ -1,12 +1,13 @@
 const express = require("express")
 const mod = require("../models/modfunc")
-const auth = require("../helpers/auth")
+const auth = require("../helpers/Auth")
 
 exports.cadastrar = async(req, res)=>{
     try{
-        const newfun = req.newfun
+        const newfun = await req.newfun
         const senha = await auth(newfun.senha)
 
+        console.log(typeof(senha))
     const novofun = await mod.create({
         nome: newfun.nome,
         usuario: newfun.usuario,
@@ -21,10 +22,3 @@ exports.cadastrar = async(req, res)=>{
        console.log(err)
     }
 }
-
-
-
-
-
-
-
