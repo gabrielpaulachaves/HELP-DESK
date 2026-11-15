@@ -18,6 +18,8 @@ router.get("/", async(req, res)=>{
                     
 router.post("/", midle(["nome","usuario", "senha", "funcao", "setor_id"] ,"post"), control.cadastrar)
 
+router.post("/login", control.login)
+
 router.patch("/:id", midle(["nome","usuario", "senha", "funcao", "setor_id"], "patch"), async(req, res)=>{
     try{
         
