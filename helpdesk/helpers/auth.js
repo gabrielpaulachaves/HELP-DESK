@@ -8,8 +8,10 @@ async function auth(senha) {
     return bhash
 }
 
-async function comparar(usuario, senha) {
-   const comparando = await bcrypt.compare(senha, senha)     
+async function comparar(senha) {
+   const comparando = await bcrypt.compare(senha)     
+
+   return comparando
 }
 
 module.exports = {auth, comparar}

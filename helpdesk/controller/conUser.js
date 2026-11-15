@@ -26,18 +26,25 @@ const cadastrar = async(req, res)=>{
 const login = async(req, res)=>{
     try{
         const trylogin = req.body
-        if(!trylogin.usuario){
-            return res.status(401).json({mensagem:"não encontrado"})
-        }
-        const buscandonobanco = mod.findAll({
+        
+        const buscandonobanco = await mod.findAll({
             where: {
                 usuario: trylogin.usuario               
             }
+            
         }) 
-        auth.comparar(buscandonobanco.usuario, buscandonobanco.senha)
+        if(buscandonobanco.usuario == null){
+            return res.status(401).json({mensagem:"não encontrado"})
+        }
+
+        const autenticado = await auth.comparar(buscandonobanco.senha)
+
+        if(autenticado){
+            return res.status(200).json({mensagem:"usuario autenticado"})
+        }
         
     }catch(err){
-         res.status(500).json({mensagem: "erro interno por parte da configuração"}) 
+         res.status(500).json({mensagem: "erro interno"}) 
        console.log(err)
     }
 }
