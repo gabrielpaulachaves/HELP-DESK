@@ -8,8 +8,8 @@ async function authc(senha) {
     return bhash
 }
 
-async function comparar(senha) {
-   const comparando = await bcrypt.compare(senha)     
+async function comparar(senha, hash) {
+   const comparando = await bcrypt.compare(senha, hash)     
 
    return comparando
 }

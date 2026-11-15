@@ -27,24 +27,26 @@ const login = async(req, res)=>{
     try{
         const trylogin = req.body
         
-        const buscandonobanco = await mod.findAll({
+        const buscandonobanco = await mod.findOne({
             where: {
                 usuario: trylogin.usuario               
-            }
-            
+            }             
         }) 
-        if(buscandonobanco.usuario == null){
+        console.log(buscandonobanco)
+        if(!buscandonobanco){
             return res.status(401).json({mensagem:"não encontrado"})
-        }
+        }else{
+            const autenticado = await auth.comparar(trylogin.senha ,buscandonobanco.senha)
 
-        const autenticado = await auth.comparar(buscandonobanco.senha)
-
-        if(autenticado){
-            return res.status(200).json({mensagem:"usuario autenticado"})
+        if(autenticado == false){
+            return res.status(401).json({mensagem:"usuario ou senha errado"})
+        }else{
+            return res.status(200).json({mensagem:"Autenticado com sucesso"})
         }
-        
+        }
+  
     }catch(err){
-         res.status(500).json({mensagem: "erro interno"}) 
+         res.status(500).json({mensagem: "erro interno aqui"}) 
        console.log(err)
     }
 }
