@@ -1,11 +1,11 @@
 const express = require("express")
 const mod = require("../models/modfunc")
-const {auth} = require("../helpers/Auth")
+const {authc, comparar} = require("../helpers/Auth")
 
 const cadastrar = async(req, res)=>{
     try{
         const newfun = await req.newfun
-        const senha = await auth.authc(newfun.senha)
+        const senha = await authc(newfun.senha)
 
         
     const novofun = await mod.create({
@@ -16,7 +16,7 @@ const cadastrar = async(req, res)=>{
         setor_id: newfun.setor_id
     })
     
-    res.status(201).json({nome: novofun.nome, senha: novofun.usuario})
+    res.status(201).json({nome: novofun.usuario, senha: novofun.senha})
     }catch(err){
          res.status(500).json({mensagem: "erro interno por parte da configuração"}) 
        console.log(err)
@@ -32,11 +32,10 @@ const login = async(req, res)=>{
                 usuario: trylogin.usuario               
             }             
         }) 
-        console.log(buscandonobanco)
         if(!buscandonobanco){
-            return res.status(401).json({mensagem:"não encontrado"})
+            return res.status(401).json({mensagem:"usuario ou senha errado"})
         }else{
-            const autenticado = await auth.comparar(trylogin.senha ,buscandonobanco.senha)
+            const autenticado = await comparar(trylogin.senha ,buscandonobanco.senha)
 
         if(autenticado == false){
             return res.status(401).json({mensagem:"usuario ou senha errado"})
@@ -46,7 +45,7 @@ const login = async(req, res)=>{
         }
   
     }catch(err){
-         res.status(500).json({mensagem: "erro interno aqui"}) 
+         res.status(500).json({mensagem: "erro interno por parte da configuração"}) 
        console.log(err)
     }
 }
