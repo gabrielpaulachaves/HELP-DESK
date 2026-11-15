@@ -1,11 +1,11 @@
 const express = require("express")
 const mod = require("../models/modfunc")
-const auth = require("../helpers/Auth")
+const {auth} = require("../helpers/Auth")
 
 const cadastrar = async(req, res)=>{
     try{
         const newfun = await req.newfun
-        const senha = await auth(newfun.senha)
+        const senha = await auth.authc(newfun.senha)
 
         
     const novofun = await mod.create({
@@ -15,8 +15,8 @@ const cadastrar = async(req, res)=>{
         funcao: newfun.funcao,
         setor_id: newfun.setor_id
     })
-
-    res.status(201).json(novofun.nome, novofun.usuario)
+    
+    res.status(201).json({nome: novofun.nome, senha: novofun.usuario})
     }catch(err){
          res.status(500).json({mensagem: "erro interno por parte da configuração"}) 
        console.log(err)

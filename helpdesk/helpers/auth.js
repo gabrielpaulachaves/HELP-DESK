@@ -2,7 +2,7 @@ const bcrypt = require("bcrypt")
 
 const saltRounds = 10
 
-async function auth(senha) {
+async function authc(senha) {
    const bhash = await bcrypt.hash(senha, saltRounds)  
      
     return bhash
@@ -14,4 +14,4 @@ async function comparar(senha) {
    return comparando
 }
 
-module.exports = {auth, comparar}
+module.exports = {authc, comparar}
