@@ -76,6 +76,21 @@ function validar(valor, http){
         }
         return auth
     }
+    if(http == "login"){
+        async function auth(req, res, next) {
+            const body = req.body
+            const logfun = {}   
+        try{
+            for (const key in body) {
+                
+                  
+            }
+        }
+        catch(err){
+
+        }
+        }
+    }
         
     if(http == "patch"){
         async function auth(req, res, next) {
