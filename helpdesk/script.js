@@ -5,6 +5,7 @@
 //npm install --save mysql2
 //npm install dotenv
 //npm install --save bcrypt
+//npm install jsonwebtoken
 
 
 require("dotenv").config()

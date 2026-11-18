@@ -76,20 +76,40 @@ function validar(valor, http){
         }
         return auth
     }
-    if(http == "login"){
+        if(http == "login"){
         async function auth(req, res, next) {
             const body = req.body
-            const logfun = {}   
-        try{
-            for (const key in body) {
-                
-                  
+            const loginfun = {}
+            try{
+
+                if(!("usuario" in body) || !("senha" in body)){
+                    return res.status(400).json({mensagem: "Há um campo em falta"})
+                }
+
+                for(const key in body){
+
+                    if(!colunas.includes(key)){
+                        return res.status(400).json({mensagem: "um campo não permitido foi adicionado"})
+                    }
+
+                    if(typeof(body[key]) == "string"){
+                        if(body[key].trim() == ""){
+                            return res.status(400).json({mensagem: "Há um campo vazio"})
+                        }else{
+                            loginfun[key] = body[key]
+                        }
+                    }else{
+                        return res.status(400).json({mensagem: "Um campo possui tipagem inválida"})
+                    }
+                }
+                req.loginfun = loginfun
+                next()
+            }catch(err){
+                res.status(500).json({mensagem: "Erro interno"})
+                console.log(err)
             }
         }
-        catch(err){
-
-        }
-        }
+        return auth
     }
         
     if(http == "patch"){
