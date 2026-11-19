@@ -1,6 +1,12 @@
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
-const token = jwt.sign({foo: "bar"}, process.env.SECRET, {algorithm: "RS256"}, function(err, token){console.log(token)})
+const { login } = require("../controller/conUser")
+const user = login.buscandonobanco
+const senha = login.autenticado
+const usu = {usuario: user, senha: senha}
+const option = {expiresIn: "15ms"}
+//const token = jwt.sign({foo: "bar"}, process.env.SECRET, {algorithm: "RS256"}, function(err, token){console.log(token)})
+token = jwt.sign(usu, process.env.SECRET, option)
 
 const saltRounds = 10
 
