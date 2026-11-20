@@ -1,6 +1,7 @@
 const express = require("express")
 const mod = require("../models/modfunc")
 const {authc, comparar, tjwt} = require("../helpers/Auth")
+const { where } = require("sequelize")
 
 const cadastrar = async(req, res)=>{
     try{
@@ -44,17 +45,29 @@ const login = async(req, res)=>{
             const jwt = await tjwt(buscandonobanco.idfuncionario)
             return res.status(200).json({mensagem:"Autenticado com sucesso"}, jwt)       
         }
-        }
-        
-  
+        } 
     }catch(err){
          res.status(500).json({mensagem: "erro interno por parte da configuração"}) 
        console.log(err)
     }
 }
 
+const alterar = async(req, res)=>{
+    try{
+        const id = req.params.id
+        const attfun = req.attfun
+         
+        await mod.update(attfun, {where: {idfuncionario: id}})
+        res.status(204).json()     
+
+    }catch(err){
+       res.status(500).json({mensagem: "erro interno por parte da configuração"}) 
+       console.log(err) 
+    }
+}
+
 
 
 module.exports = {
-    cadastrar, login
+    cadastrar, login, alterar
 }

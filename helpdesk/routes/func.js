@@ -1,7 +1,7 @@
 const express = require("express")
 const router = express.Router()
 const mod = require("../models/modfunc")
-const midle = require("../middlewares/middleuser")
+const midle = require("../middlewares/middleUser")
 const control = require("../controller/conUser")
 
 
@@ -20,14 +20,7 @@ router.post("/", midle(["nome","usuario", "senha", "funcao", "setor_id"] ,"post"
 
 router.post("/login", midle(["usuario", "senha"], "login"),control.login)
 
-router.patch("/:id", midle(["nome","usuario", "senha", "funcao", "setor_id"], "patch"), async(req, res)=>{
-    try{
-        
-
-    }catch{
-        res.status(500).json({mensagem: "erro interno"}) 
-    }
-})
+router.patch("/:id", midle(["nome", "senha"], "patch"), control.alterar)
 
 
 

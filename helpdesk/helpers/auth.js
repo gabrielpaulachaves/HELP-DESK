@@ -15,8 +15,8 @@ async function comparar(senha, hash) {
    return comparando
 }
 async function tjwt(usu){
-   const token = jwt.sign(usu, process.env.SECRET, {expiresIn: process.env.EXPIRES})
-
+   const token = jwt.sign({usu}, process.env.SECRET, {expiresIn: process.env.EXPIRES})
+   console.log(token)
    return token
 }
 
